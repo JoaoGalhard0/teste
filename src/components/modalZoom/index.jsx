@@ -1,5 +1,5 @@
 import { styled } from "styled-components"
-import Imagem from "../gallery/image/index.jsx"
+import Imagem from "../gallery/image"
 import IconButton from "../iconButton/index.jsx"
 
 const Overlay = styled.div`
@@ -11,7 +11,7 @@ const Overlay = styled.div`
     left: 0;
 `
 
-const DialogEstilizado = styled.dialog`
+const DialogStyled = styled.dialog`
     position: absolute;
     top: 294px;
     background: transparent;
@@ -29,20 +29,22 @@ const DialogEstilizado = styled.dialog`
     }
 `
 
-const ModalZoom = ({ foto, aoFechar }) => {
+const ModalZoom = ({ photo, onClose, onTuggleFavorite }) => {
     return (
         <>
-            {foto && <>
-                <Overlay />
-                <DialogEstilizado open={!!foto} onClose={aoFechar}>
-                    <Imagem foto={foto} expandida={true} />
+            {photo && <>
+            <Overlay />
+                <DialogStyled open={!!photo} onClose={onClose}>
+                    <Imagem photo={photo} expandida={true} onTuggleFavorite={onTuggleFavorite}/>
                     <form method="dialog">
                         <IconButton formMethod="dialog">
-                            <img src="/icons/fechar.png" alt="Icone de fechar" />
+                            <img src="/icons/fechar.png" alt="" />
                         </IconButton>
                     </form>
-                </DialogEstilizado>
-            </>}
+                </DialogStyled>
+            </>
+            }
+
         </>
     )
 }

@@ -38,18 +38,21 @@ const Rodape = styled.footer`
     align-items: center;
 `
 
-const Imagem = ({ foto, expandida = false, whenZoomRequested }) => {
-    return (<Figure $expandida={expandida} id={`foto-${foto.id}`}>
-        <img src={foto.path} alt={foto.alt} />
+const Imagem = ({ photo, expandida = false, whenZoomRequested, onTuggleFavorite }) => {
+
+    const favoriteIcon = photo.favorite ? '/icons/favorito-ativo.png' : '/icons/favorito.png'
+
+    return (<Figure $expandida={expandida} id={`foto-${photo.id}`}>
+        <img src={photo.path} alt={photo.alt} />
         <figcaption>
-            <h3>{foto.titulo}</h3>
+            <h3>{photo.titulo}</h3>
             <Rodape>
-                <h4>{foto.fonte}</h4>
-                <IconButton>
-                    <img src="/icons/favorito.png" alt="Icone de favorito" />
+                <h4>{photo.fonte}</h4>
+                <IconButton onClick={() => (onTuggleFavorite(photo))}>
+                    <img src={favoriteIcon} alt="Icone de favorito" />
                 </IconButton>
-                
-                {!expandida && <IconButton aria-hidden={expandida} onClick={() => whenZoomRequested(foto)}>
+                {!expandida && 
+                <IconButton aria-hidden={expandida} onClick={() => whenZoomRequested(photo)}>
                     <img src="/icons/expandir.png" alt="Icone de expandir" />
                 </IconButton>}
             </Rodape>

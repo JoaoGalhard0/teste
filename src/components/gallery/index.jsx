@@ -20,7 +20,7 @@ const ContainerImages = styled.section`
     gap: 24px;
 `
 
-const Gallery = ({ photos = [], toSelectedPhoto }) => {
+const Gallery = ({ photos = [], toSelectedPhoto, onTuggleFavorite }) => {
     return (
         <>
             <Tags />
@@ -31,8 +31,9 @@ const Gallery = ({ photos = [], toSelectedPhoto }) => {
                         {photos.map(photo =>
                             <Image
                                 whenZoomRequested={toSelectedPhoto}
+                                onTuggleFavorite={onTuggleFavorite}
                                 key={photo.id}
-                                foto={photo} />)
+                                photo={photo} />)
                         }
                     </ContainerImages>
                 </FluidSection>

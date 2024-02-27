@@ -35,6 +35,21 @@ const App = () => {
   const [photosFromGallery, setPhotosFromGallery] = useState(photos)
   const [selectedPhoto, setSelectedPhoto] = useState(null)
 
+  const onTuggleFavorite = (photo) => {
+    if (photo.id === selectedPhoto?.id) {
+      setSelectedPhoto({
+        ...selectedPhoto,
+        favorite: !selectedPhoto.favorite
+      })
+    }
+    setPhotosFromGallery(photosFromGallery.map(photoFromGallery => {
+      return {
+        ...photoFromGallery,
+        favorite: photoFromGallery.id === photo.id ? !photo.favorite : photoFromGallery.favorite
+      }
+    }))
+  }
+
   return (
     <GradientBackground>
       <GlobalStyle />
@@ -48,7 +63,8 @@ const App = () => {
               backgroundImage={bannerBackground}
             />
             <Gallery
-              aoFotoSelecionada={photo => setSelectedPhoto(photo)}
+              toSelectedPhoto={photo => setSelectedPhoto(photo)}
+              onTuggleFavorite={onTuggleFavorite}
               photos={photosFromGallery} />
           </GalleryContent>
         </ContainerMain>
@@ -56,6 +72,7 @@ const App = () => {
       <ModalZoom
         photo={selectedPhoto}
         onClose={() => setSelectedPhoto(null)}
+        onTuggleFavorite={onTuggleFavorite}
       />
     </GradientBackground>
   )
